@@ -83,6 +83,9 @@ public class CarDetailsPageController {
             model.addAttribute(CAR_ITEM, carDetails);
             model.addAttribute(RATING_ITEM, ratingItems);
 
+            model.addAttribute("cartCount", cartService.getCartCount());
+            model.addAttribute("cartTotalCost", cartService.getCartTotalCost());
+
             model.addAttribute("ratingStar", ratingService.calculateRatingStar(carId));
             model.addAttribute("averageRating", ratingService.calculateAverageRating(carId));
             model.addAttribute("ratingCount", ratingService.getRatingCount(carId));

@@ -9,6 +9,7 @@ import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -73,8 +74,12 @@ public class RatingService {
 
     public List<Rating> getRatingByProductId(long productId) {
 
-        return ratingRepository.findByProductId(productId);
-    }
+        List<Rating> ratings = ratingRepository.findByProductId(productId);
+
+        return ratings.stream()
+                .sorted((r1, r2) -> Long.compare(r2.getRatingId(), r1.getRatingId()))
+                .collect(Collectors.toList());
+}
 
     private List<Rating> getAllRatings() {
         return ratingRepository.findAll();
